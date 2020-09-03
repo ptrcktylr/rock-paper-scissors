@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>rock paper scissors</title>
+    <meta charset="UTF-8" />
+</head>
+
+<body>
+    <script>
+        const MOVES = ["rock", "paper", "scissors"]
+
+        function getRandInt(num) {
+            // returns random number between 0 (inclusive) and num (exclusive)
+            return Math.floor( Math.random() * Math.floor(num) )
+        }
+
+        function getComputerMove() {
+            return MOVES[getRandInt(3)] // gets random element from moves array
+        }
+
+        function getPlayerMove() { // prompts user for move until move is valid
+            let playerMove = null
+            playerMove = prompt("Enter your move!")
+
+            while (playerMove === null || !MOVES.includes(playerMove.toLowerCase())) {
+                playerMove = prompt("Invalid move! Enter rock, paper, or scissors!")
+            }
+
+            return playerMove.toLowerCase()
+        }
+
+        function playRound(playerMove, computerMove) {
+            if (playerMove === "rock") { // ROCK //
+                if (computerMove === "paper") { // rock and paper
+                    alert("You lose! Paper beats rock!")
+                    return "loss"
+                } else if (computerMove === "scissors") { // rock and scissors
+                    alert("You win! Rock beats scissors!")
+                    return "win"
+                } else {
+                    alert("It's a tie! Rock and rock!") // rock and rock
+                    return "tie"
+                }
+
+            } else if (playerMove === "paper") { // PAPER //
+                if (computerMove === "rock") { // paper and rock
+                    alert("You win! Paper beats rock!")
+                    return "win"
+                } else if (computerMove === "scissors") { // paper and scissors
+                    alert("You lose! Scissors beats paper!")
+                    return "loss"
+                } else {
+                    alert("It's a tie! Paper and paper!") // paper and paper
+                    return "tie"
+                }
+
+            } else if (playerMove === "scissors") { // SCISSORS //
+                if (computerMove === "paper") { // scissors and paper
+                    alert("You win! Scissors beats paper!")
+                    return "win"
+                } else if (computerMove === "rock") { // scissors and rock
+                    alert("You lose! Rock beats scissors!")
+                    return "loss"
+                } else {
+                    alert("It's a tie! Scissors and scissors!") // scissors and scissors
+                    return "tie"
+                }
+
+            } else {
+                alert("Something went horribly wrong..")
+                return null
+            }
+        }
+
+        let playerScore = 0
+        let computerScore = 0
+
+        for (let i = 0; i < 5; i++) {
+            let computerMove = getComputerMove()
+            let playerMove = getPlayerMove()
+            let result = playRound(playerMove, computerMove)
+
+            if (result == "win") {
+                playerScore++
+            } else if (result == "loss") {
+                computerScore++
+            } else {
+                // do nothing, tie
+            }
+
+            alert(`SCORE - Player: ${playerScore} vs Computer: ${computerScore}`)
+        }
+
+        if (playerScore > computerScore) {
+            alert(`Game over! You win! Player: ${playerScore} vs Computer: ${computerScore}`)
+        } else if (playerScore < computerScore) {
+            alert(`Game over! You lose! Player: ${playerScore} vs Computer: ${computerScore}`)
+        } else {
+            alert(`Game over! It's a tie! Player: ${playerScore} vs Computer: ${computerScore}`)
+        }
+
+
+    </script>
+</body>
+
+</html>
